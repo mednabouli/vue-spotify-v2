@@ -1,8 +1,8 @@
-const base = 'https://api.spotify.com/v1/search?q='
+const base = 'https://api.spotify.com/v1'
 
 /* eslint-disable no-undef */
 export const fetchByType = (query, type, offset = 0, limit = 10) => {
-  return fetch(base + query + '&type=' + type + '&offset=' + offset + '&limit=' + limit)
+  return fetch(base + '/search?q=' + query + '&type=' + type + '&offset=' + offset + '&limit=' + limit)
     .then(obj => {
       return obj.json()
     }).then(res => {
@@ -38,4 +38,16 @@ export const fetchByType = (query, type, offset = 0, limit = 10) => {
           return []
       }
     })
+}
+
+export const fetchAlbumById = (id) => {
+  return fetch(base + '/albums/' + id).then(res => res.json())
+}
+
+export const fetchArtistById = (id) => {
+  return fetch(base + '/artists/' + id).then(res => res.json())
+}
+
+export const fetchArtistTopTracks = (id) => {
+  return fetch(base + '/artists/' + id + '/top-tracks?country=US').then(res => res.json())
 }
